@@ -1,0 +1,8 @@
+apiVersion: gpte.opentlc.com/v1alpha1
+kind: Matt
+metadata:
+  name: matt
+spec:
+  postgresqlVolumeSize: 4Gi
+  gogsVolumeSize: 4Gi
+  gogsSsl: True

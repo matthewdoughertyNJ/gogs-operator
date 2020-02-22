@@ -1,0 +1,337 @@
+exit
+oc
+find .
+find . |grep kube
+oc whoami -c
+oc get projects
+echo "apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: gogs.gpte.opentlc.com
+spec:
+  group: gpte.opentlc.com
+  names:
+    kind: Gogs
+    listKind: GogsList
+    plural: gogs
+    singular: gogs
+  scope: Namespaced
+  version: v1alpha1
+  subresources:
+    status: {}" | oc apply -f -
+echo '---
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+  name: gogs-admin-rules
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - deployments/finalizers
+  verbs:
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  - services/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - gpte.opentlc.com
+  resources:
+  - gogs
+  - gogs/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch' | oc apply -f -
+sudo wget https://github.com/operator-framework/operator-sdk/releases/download/v0.12.0/operator-sdk-v0.12.0-x86_64-linux-gnu -O /usr/bin/operator-sdk
+sudo chmod +x /usr/bin/operator-sdk
+git clone https://github.com/redhat-gpte-devopsautomation/ansible-operator-roles
+cd ansible-operator-roles
+git checkout v0.12.0
+cd ..
+operator-sdk new gogs-operator --api-version=gpte.opentlc.com/v1alpha1 --kind=Gogs --type=ansible --generate-playbook
+cd $HOME/gogs-operator
+rm -rf roles playbook.yml
+mkdir roles
+cp -R $HOME/ansible-operator-roles/roles/postgresql-ocp ./roles
+cp -R $HOME/ansible-operator-roles/roles/gogs-ocp ./roles
+cp $HOME/ansible-operator-roles/playbooks/gogs.yaml ./playbook.yml
+docker login -u matthewdoughertynj quay.io
+set -o vi
+podman login -u matthewdoughertynj quay.io
+sudo -s
+exit
+oc get crd
+history
+ls -d */
+cd gogs-operator
+ls
+find build
+oc whoamo -c
+oc whoami -c
+oc whoami --help
+set -o vi
+oc whoami --show-console --show-context --show-server
+oc get pod
+oc logs gogs-operator-5d889c6c44-mp7t8 -c operator
+oc whoami -c
+oc login
+env |grep G
+oc login -u kubeadmin 
+oc whoami -c
+oc get project |grep gogs
+oc get node
+oc project kube-system
+oc get pod
+oc get --all
+oc get all
+oc get project
+oc project openshift-kube-apiserver
+oc get pod
+history
+history -w /dev/stdout
+echo "apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: gogs.gpte.opentlc.com
+spec:
+  group: gpte.opentlc.com
+  names:
+    kind: Gogs
+    listKind: GogsList
+    plural: gogs
+    singular: gogs
+  scope: Namespaced
+  version: v1alpha1
+  subresources:
+    status: {}" | oc apply -f -
+echo '---
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+  name: gogs-admin-rules
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - deployments/finalizers
+  verbs:
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  - services/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - gpte.opentlc.com
+  resources:
+  - gogs
+  - gogs/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch' | oc apply -f -
+sudo wget https://github.com/operator-framework/operator-sdk/releases/download/v0.12.0/operator-sdk-v0.12.0-x86_64-linux-gnu -O /usr/bin/operator-sdk
+sudo chmod +x /usr/bin/operator-sdk
+git clone https://github.com/redhat-gpte-devopsautomation/ansible-operator-roles
+cd ansible-operator-roles
+git checkout v0.12.0
+cd ..
+operator-sdk new gogs-operator --api-version=gpte.opentlc.com/v1alpha1 --kind=Gogs --type=ansible --generate-playbook
+cd $HOME/gogs-operator
+rm -rf roles playbook.yml
+mkdir roles
+cp -R $HOME/ansible-operator-roles/roles/postgresql-ocp ./roles
+cp -R $HOME/ansible-operator-roles/roles/gogs-ocp ./roles
+cp $HOME/ansible-operator-roles/playbooks/gogs.yaml ./playbook.yml
+docker login -u matthewdoughertynj quay.io
+sudo docker login -u matthewdoughertynj quay.io
+yum -y install docker && systemctl start docker
+sudo -s
+oc whoami -c
+oc get project
+oc get project |grep gogs
+oc get operator --all-namespaces
+oc get crd --all-namespaces
+top
+oc whoami -c
+oc get project
+oc get project |grep gogs
+oc get user
+oc get users
+oc login -u system:admin
+set -o vi
+oc get users
+oc get groups
+oc get projects
+oc login -u kubeadmin
+oc get user
+oc get users
+oc get groups
+oc get projects |grep gogs
+ocproject
+oc project
+echo $GUID
+oc can-i get users
+exit
+ls -tlr
+oc whoami -c
+oc login -u kubeadmin
+oc get users
+oc adm --help
+set -o vi
+oc adm policy --help
+oc groups --help
+oc adm
+oc adm groups
+oc adm groups new matttest
+oc get group
+oc adm policy add-cluster-role-to-user cluster-admin matttest
+oc adm policy add-cluster-role-to-group cluster-admin matttest
+oc get crd
+oc get crd |grep gogs
+oc describe crd/gogs.gpte.opentlc.com
+oc get clusterrole
+oc get clusterrole |grep gogs
+cd ansible-operator-roles/
+git branch
+ls
+find .
+cat tasks/main.yml
+cat ./roles/postgresql-ocp/tasks/main.yml
+ls -tlr roles
+find roles/gogs-ocp
+pwd
+ls
+cd ..
+ls
+cd gogs-operator
+ls
+cat playbook.yml
+docker images
+sudo docker images
+systemctl status docker
+systemctl enable docker
+sudo systemctl enable docker
+sudo systemctl start docker
+docker images
+sudo docker images
+more deploy/operator.yaml 
+oc new-project ${GUID}-gogs --display-name="Gogs"
+ oc apply -f ./deploy/service_account.yaml
+oc apply -f ./deploy/role.yaml
+oc apply -f ./deploy/role_binding.yaml
+oc apply -f ./deploy/operator.yaml
+oc get pod -w
+oc logs -f gogs-operator-5d889c6c44-5bj7j
+oc logs -f gogs-operator-5d889c6c44-5bj7j --all-containers
+oc get pod -w
+oc get event
+oc logs -f gogs-operator-5d889c6c44-5bj7j -c operator
+ls 
+vi rolesnew.yml
+ls roles
+find . -name roles.yml
+find .. -name roles.yml
+find .. -name role.yml
+find ../.. -name role.yml
+ls deploy
+find . -name role.yml
+diff rolesnew.yml deploy/role.yaml
+grep patch rolesnew.yml deploy/role.yaml
+vi deploy/role.yaml 
+oc apply -f deploy/role.yaml 
+oc get pod -w
+oc delete pod/gogs-operator-5d889c6c44-5bj7j
+oc get pod -w
+oc describe pod/gogs-operator-5d889c6c44-l7845
+cat watches.yaml 
+ocls -l /opt/ansible
+oc rsh pod/gogs-operator-5d889c6c44-l7845 ls -l /opt/ansible
+oc rsh pod/gogs-operator-5d889c6c44-l7845 cat /opt/ansible/playbook.yml
+oc get crd |grep gogs
+oc get gogs.gpte.opentlc.com
+oc describe crd/gogs.gpte.opentlc.com
+oc get gogs
+ls 
+cat gogs.yaml 
+oc apply -f gogs.yaml
+oc get pod
+oc logs -f gogs-operator-5d889c6c44-l7845
+oc logs -f gogs-operator-5d889c6c44-l7845 -c operator
+oc get pod 
+oc get gogs
+oc describe gogs/gogs
+oc describe crd/gogs.gpte.opentlc.com
+for X in $(oc get crd); do oc describe crd/$X |grep Singular; done
+oc get deployment
+oc get replicaset
+oc get rs
+oc delete -f gogs.yaml
+oc get gogs
+oc get deployment
+for X in $(oc get crd -o name); do oc describe $X|egrep -i "singular|plural"; done
+for X in $(oc get crd -o name); do echo $X;oc describe $X|egrep -i "singular|plural"; done
+for X in $(oc get crd -o name); do echo $X;oc describe $X|egrep -i "singular"; done
+oc describe customresourcedefinition.apiextensions.k8s.io/clusterversions.config.openshift.io
+for X in $(oc get crd -o name); do echo $X;oc describe $X|egrep -i "singular"|head -1; done
+oc get tuned --all-namespaces
+oc get deployment
+oc apply -f gogs.yaml
+oc get deployment
+oc get deployment -w
+oc get dc
+oc get deployment
+oc describe deployment/gogs-gogs
+oc get deployment
+oc describe deployment/postgresql-gogs-gogs
+oc get gogs
+oc get pod
+oc get route
+oc describe gogs/gogs
+oc get -o yaml  gogs/gogs
+oc get -o yaml  deployment/gogs-gogs
+oc get -o yaml  deployment/gogs-gogs |grep -A 10 ownerReferences:
+oc get -o yaml  gogs/gogs|grep -A 10 ownerReferences:
+oc get -o yaml  deployment/postgresql-gogs-gogs |grep -A 10 ownerReferences:
+history -w /dev/stdout >matthist.txt
